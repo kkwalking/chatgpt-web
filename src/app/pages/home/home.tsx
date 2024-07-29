@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./home.module.scss";
-import {SideBar} from "./sidebar";
+import {SideBar} from "../../components/sidebar/sidebar";
 
 import {
     HashRouter as Router,
@@ -11,8 +11,8 @@ import {
 import dynamic from "next/dynamic";
 import {Path} from "@/app/constants";
 
-const Chat = dynamic(async () => (await import("./chat/chat")).Chat);
-const Role = dynamic(async () => (await import("./role/role")).Role);
+const Chat = dynamic(async () => (await import("@/app/pages/chat/chat")).Chat);
+const Role = dynamic(async () => (await import("@/app/pages/role/role")).Role);
 
 function Screen() {
     return (

@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'ChatGPT - 聊天助手',
-  description: '您的 ChatGPT 贴心助手！',
+  description: '快捷方便的GPT问答助手',
 }
 
 export default function RootLayout({
