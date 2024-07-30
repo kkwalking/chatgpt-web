@@ -3,11 +3,16 @@ import {DialogItem} from "@/app/components/dialog/item/dialog-item";
 import {DialogType} from "@/app/types/chat";
 import {DialogResizeableSidebar} from "@/app/components/dialog/dialog-resizeable-sidebar";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+
 
 /**
  * 对话框列表
  */
 export function DialogList() {
+    const navigate = useNavigate();
+
+
     // 初始状态包含测试数据
     const [dialogs, setDialogs] = useState<DialogType[]>([
         {
@@ -43,21 +48,23 @@ export function DialogList() {
                     // 获取当前最大 dialogId
                     const maxDialogId = dialogs.reduce((maxId, dialog) => Math.max(dialog.dialogId, maxId), 0);
                     // 心里咨询
-                    const dialog03: DialogType = {
+                    const newDialog: DialogType = {
                         avatar: '/role/psychological.png',
                         dialogId: maxDialogId+1,
                         read: true,
-                        subTitle: '吹灭别人的灯，不能照亮自己',
+                        subTitle: '吹灭别人的灯，不能照亮自己' + Math.random(),
                         timestamp: Date.now(),
                         title: '心理咨询',
                         count: 100
                     };
 
                     // 使用 setDialogs 更新状态而不是直接修改 dialogs
-                    setDialogs(prevDialogs => [dialog03, ...prevDialogs])
+                    setDialogs(prevDialogs => [newDialog, ...prevDialogs])
 
                     // 设置选中，这样会刷新数据
-                    setSelected(dialog03);
+                    setSelected(newDialog);
+                    // 跳转到对应路由
+                    navigate(`/chat/${newDialog.dialogId}`, {state: {title: newDialog.title}})
                 }}></div>
             </div>
             {/*对话列表*/}
@@ -69,6 +76,7 @@ export function DialogList() {
                         dialog={dialog}
                         selected={selected?.dialogId === dialog.dialogId}
                         onClick={() => {
+                            navigate(`/chat/${dialog.dialogId}`, {state: {title: dialog.title}})
                             setSelected(dialog)
                         }}
                     />
